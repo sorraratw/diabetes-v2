@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+      .tab {
+            display: inline-block;
+            margin-left: 80px;
+      }
+    </style>
+
+
+</head>
+
+<body>
+  <div class="container">
+    <form action="{{url_for('getPredict')}}" method="POST">
+      <h1 style="color:DodgerBlue;">AI Model พยากรณ์ว่าเป็นโรคเบาหวานหรือไม่</h1>
+      <p>Input variables in model ถ้ามีอาการใส่ค่า 1 , ไม่มีอาการใส่ค่า 0 , อายุใส่ค่าจริง</p>
+      <hr>
+
+      <table border="0">
+        <tr>
+          <th>รายการ</th>
+          <th>ข้อมูล</th>
+        </tr>
+        <tr>
+          <td>age</td>
+          <td><input type="text" placeholder="Enter age" name="x1" required>อายุ</td>
+        </tr>
+        <tr>
+          <td>polyuria</td>
+          <td><input type="text" placeholder="Enter polyuria" name="x2" required>ภาวะที่มีปัสสาวะมากกว่า 3 L/day</td>
+        </tr>
+        <tr>
+          <td>polydipsia</td>
+          <td><input type="text" placeholder="Enter polydipsia" name="x3" required>ดื่มน้ำมากเกินกว่าปกติ</td>
+        </tr>
+        <tr>
+          <td>sudden_weight_loss</td>
+          <td><input type="text" placeholder="Enter sudden_weight_loss" name="x4" required>น้ำหนักลดลงอย่างรวดเร็ว</td>
+        </tr>
+        </tr>
+        <tr>
+          <td>weakness</td>
+          <td><input type="text" placeholder="Enter weakness" name="x5" required>อ่อนเพลีย</td>
+        </tr>
+        <tr>
+          <td>polyphagia</td>
+          <td><input type="text" placeholder="Enter polyphagia" name="x6" required>กินอาหารมากผิดปกติ</td>
+        </tr>
+        <tr>
+          <td>genital_thrush</td>
+          <td><input type="text" placeholder="Enter genital_thrush" name="x7" required>มีเชื้อราในช่องคลอด</td>
+        </tr>
+        <tr>
+          <td>visual_blurring</td>
+          <td><input type="text" placeholder="Enter visual_blurring" name="x8" required>มองเห็นมัวๆ</td>
+        </tr>
+        </tr>
+        <tr>
+          <td>itching</td>
+          <td><input type="text" placeholder="Enter itching" name="x9" required>มีอาการคัน</td>
+        </tr>
+        <tr>
+          <td>irritability</td>
+          <td><input type="text" placeholder="Enter irritability" name="x10" required>มีอาการหงุดหงิด</td>
+        </tr>
+        <tr>
+          <td>delayed_healing</td>
+          <td><input type="text" placeholder="Enter delayed_healing" name="x11" required>แผลหายช้า</td>
+        </tr>
+        <tr>
+          <td>partial_paresis</td>
+          <td><input type="text" placeholder="Enter partial_paresis" name="x12" required>อัมพฤกษ์บางส่วน</td>
+        </tr>
+        </tr>
+        <tr>
+          <td>muscle_stiffness</td>
+          <td><input type="text" placeholder="Enter muscle_stiffness" name="x13" required>อาการที่กล้ามเนื้อหดเกร็งและเคลื่อนไหวลำบากกว่าปกติ</td>
+        </tr>
+        <tr>
+          <td>alopecia</td>
+          <td><input type="text" placeholder="Enter alopecia" name="x14" required>ผมร่วงเป็นหย่อมๆหรือเป็นวงๆ</td>
+        </tr>
+        <tr>
+          <td>obesity</td>
+          <td><input type="text" placeholder="Enter obesity" name="x15" required>อ้วนมาก</td>
+        </tr>
+        <tr>
+          <td>Male</td>
+          <td><input type="text" placeholder="Enter Male" name="x16" required>ชาย 0 หญิง 1</td>
+        </tr>
+        </tr>
+
+      </table>
+
+<!--
+      <label for="value"><b>age</b></label>
+      <input type="text" placeholder="Enter age" name="x1" required>อายุ
+      <br>
+      <label for="value"><b>polyuria</b></label><span class="tab"></span>
+      <input type="text" placeholder="Enter polyuria" name="x2" required>ภาวะที่มีปัสสาวะมากกว่า 3 L/day
+      <br>
+      <label for="value"><b>polydipsia</b></label>
+      <input type="text" placeholder="Enter polydipsia" name="x3" required>ดื่มน้ำมากเกินกว่าปกติ
+      <br>
+      <label for="value"><b>sudden_weight_loss</b></label>
+      <input type="text" placeholder="Enter sudden_weight_loss" name="x4" required>น้ำหนักลดลงอย่างรวดเร็ว
+      <br>
+      <label for="value"><b>weakness</b></label>
+      <input type="text" placeholder="Enter weakness" name="x5" required>อ่อนเพลีย
+      <br>
+      <label for="value"><b>polyphagia</b></label>
+      <input type="text" placeholder="Enter polyphagia" name="x6" required>กินอาหารมากผิดปกติ
+      <br>
+
+      <label for="value"><b>genital_thrush</b></label>
+      <input type="text" placeholder="Enter genital_thrush" name="x7" required>มีเชื้อราในช่องคลอด
+      <br>
+      <label for="value"><b>visual_blurring</b></label>
+      <input type="text" placeholder="Enter visual_blurring" name="x8" required>มองเห็นมัวๆ
+      <br>
+      <label for="value"><b>itching</b></label>
+      <input type="text" placeholder="Enter itching" name="x9" required>มีอาการคัน
+      <br>
+      <label for="value"><b>irritability</b></label>
+      <input type="text" placeholder="Enter irritability" name="x10" required>มีอาการหงุดหงิด
+      <br>
+      <label for="value"><b>delayed_healing</b></label>
+      <input type="text" placeholder="Enter delayed_healing" name="x11" required>แผลหายช้า
+      <br>
+      <label for="value"><b>partial_paresis</b></label>
+      <input type="text" placeholder="Enter partial_paresis" name="x12" required>อัมพฤกษ์บางส่วน
+      <br>
+
+      <label for="value"><b>muscle_stiffness</b></label>
+      <input type="text" placeholder="Enter muscle_stiffness" name="x13" required>อาการที่กล้ามเนื้อหดเกร็งและเคลื่อนไหวลำบากกว่าปกติ
+      <br>
+      <label for="value"><b>alopecia</b></label>
+      <input type="text" placeholder="Enter alopecia" name="x14" required>ผมร่วงเป็นหย่อมๆหรือเป็นวงๆ
+      <br>
+      <label for="value"><b>obesity</b></label>
+      <input type="text" placeholder="Enter obesity" name="x15" required>อ้วนมาก
+      <br>
+      <label for="value"><b>Male</b></label>
+      <input type="text" placeholder="Enter Male" name="x16" required>ชาย 1 หญิง 0
+      <br>
+
+-->
+
+
+
+
+<!--
+ 0   age                 520 non-null    int64
+ 1   polyuria            520 non-null    int64
+ 2   polydipsia          520 non-null    int64
+ 3   sudden_weight_loss  520 non-null    int64
+ 4   weakness            520 non-null    int64
+ 5   polyphagia          520 non-null    int64
+ 6   genital_thrush      520 non-null    int64
+ 7   visual_blurring     520 non-null    int64
+ 8   itching             520 non-null    int64
+ 9   irritability        520 non-null    int64
+ 10  delayed_healing     520 non-null    int64
+ 11  partial_paresis     520 non-null    int64
+ 12  muscle_stiffness    520 non-null    int64
+ 13  alopecia            520 non-null    int64
+ 14  obesity             520 non-null    int64
+ 15  class               520 non-null    int64
+ 16  Male                520 non-null    int64
+
+
+# polyuria ภาวะที่มีปัสสาวะมากกว่า 3 L/day
+# polydipsia กังวลเรื่องเครื่องดื่มมากเกินไป
+# polyphagia การกินอาหารมากผิดปกติ
+# genital thrush โรคเชื้อราในช่องคลอด
+# itching อาการคัน
+# irritability ความหงุดหงิด
+# partial paresis อัมพฤกษ์บางส่วน
+# muscle stiffness อาการที่กล้ามเนื้อหดเกร็งและเคลื่อนไหวลำบากกว่าปกติ
+# alopecia โรคผมร่วงเป็นหย่อม หรือโรคผมร่วงเป็นวง
+# obesity โรคอ้วน
+-->
+
+
+      <hr>
+
+      <button type="submit" class="predictbtn">Get prediction</button>
+    </form>
+
+    <br>
+    <br>
+    <h1 style="color:IndianRed;">{{prediction_text}}</h1>
+  </div>
+</body>
+
+</html>
